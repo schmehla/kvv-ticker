@@ -4,12 +4,12 @@
     <title>Document</title>
 </head>
 <body style="margin: 0; padding: 0;">
-    {% for diff in diffs %}
+    {% for row in table %}
         <div style="font-family: sans-serif; color: black; padding: 0 1em 1em 1em; {% if loop.index == 1 %}padding-top: 1em{% endif %}">
-            <span>{{ diff['date'] }}</span>
-            <h3>{{ diff['subject'] }}</h3>
-            <p>{{ diff['content'] }}</p>
-            <a href="{{ diff['details_link'] }}" style="text-decoration: none">Details</a>
+            <span>{{ row['date'] }}</span>
+            <h3>{{ row['subject'] }}</h3>
+            <p>{{ row['content'] }}</p>
+            <a href="{{ row['details_link'] }}" style="text-decoration: none">Details</a>
             <div style="{% if loop.index != loop.length %}height: 1px; background-color: rgb(100, 100, 100); margin-top: 1em{% endif %}"></div>
         </div>
     {% endfor %}

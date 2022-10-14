@@ -16,5 +16,5 @@ This python script scrapes current traffic reports from the Karlsruhe Transport 
   "SMTP_PORT": number
 }
 ```
-6. Run shell script with email addresses to notify: `source run.sh email1@domain.com email2@domain.com ... emailN@domain.com`
+6. Run shell script with email addresses to notify: `source run.sh email1@domain.com{string1|string2} email2@domain.com}{string1&string2|string3} ... emailN@domain.com`. Optionally, AND-filters (&) and OR-filters (|) can be used: `{IRE| 1 | 1,| 2 | 2,| 3 | 3,| 4 | 4,| 5 | 5,|S1|S2|S3|S4|S5|S6|S7|S8|S9|allen Linie|alle Linie}`
 7. Set up cron job to poll for new reports (only new reports are sent).

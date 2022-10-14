@@ -17,5 +17,5 @@ This python script scrapes current traffic reports from the Karlsruhe Transport 
 }
 ```
 6. Run shell script with email addresses to notify: `source run.sh email1@domain.com{string1|string2} email2@domain.com}{string1&string2|string3} ... emailN@domain.com`. Optionally, AND-filters (&) and OR-filters (|) can be used.
-The following filter covers most of the lines running through the center: `{IRE| 1 | 1,| 2 | 2,| 3 | 3,| 4 | 4,| 5 | 5,|S1|S2|S3|S4|S5|S6|S7|S8|S9|allen Linie|alle Linie|Alle Linie|Allen Linie}`
+The following filter captures most of the lines running through the city center: `{IRE| 1 | 1,| 2 | 2,| 3 | 3,| 4 | 4,| 5 | 5,|S1|S2|S3|S4|S5|S6|S7|S8|S9|allen Linie|alle Linie|Alle Linie|Allen Linie}`
 7. Set up cron job to poll for reports (only new reports are sent).

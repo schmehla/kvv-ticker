@@ -1,0 +1,6 @@
+{
+  "MAIL_USER": string,
+  "MAIL_PW": string,
+  "SMTP_SERVER": string,
+  "SMTP_PORT": number
+}

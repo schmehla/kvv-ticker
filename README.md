@@ -7,14 +7,7 @@ This python script scrapes current traffic reports from the Karlsruhe Transport 
 2. Activate virtual environment: `source venv/bin/activate`
 3. Install requirements: `pip install -r requirements.txt`
 4. Quit virtual environment: `deactivate`
-5. Create `hashes.json` with the following fields: 
-```json
-{
-  "root_hash": "",
-  "hashes": []
-}
-```
-6. Create `mail_config.json` with the following fields: 
+5. Fill `mail_config.json`: 
 ```json
 {
   "MAIL_USER": string,

@@ -22,18 +22,20 @@ def send_email(subject, sender_name, body, send_to):
 
     msg.attach(MIMEText(body, 'html'))
 
+    smtp_server = None
     try:
+        print('[INFO] trying to send email to', send_to)
         context = ssl.SSLContext(ssl.PROTOCOL_TLS)
         smtp_server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
         smtp_server.starttls(context=context)
         smtp_server.login(MAIL_USER, MAIL_PW)
         smtp_server.sendmail(send_from, send_to, msg.as_string())
         print('[INFO] email to', send_to, 'sent successfully')
-    except:
-        print('[ERROR] sending email to', send_to, 'failed')
+    except Exception as e:
+        print('[ERROR] sending email to', send_to, 'failed: ', e)
     finally:
-        smtp_server.close()
-
+        if smtp_server is not None:
+            smtp_server.close()
 
 def read_mail_config():
     json_string = open(MAIL_CONFIG_FILE, 'r').read()

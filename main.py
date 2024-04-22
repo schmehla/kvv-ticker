@@ -10,7 +10,8 @@ from notify import *
 URL = 'https://www.kvv.de/fahrplan/verkehrsmeldungen.html'
 MAIL_PATTERN = '[^@]+@[^@]+.\w+'
 FILTER_CHARS = '[a-zA-Z0-9_\-\ ,]'
-ARG_PATTERN = '^(' + MAIL_PATTERN + ')(?:\{((?:' + FILTER_CHARS + '+(?:\||&))*)(' + FILTER_CHARS + '+)\})?$'
+SEP_REGEX = '[\|&]'
+ARG_PATTERN = '^(' + MAIL_PATTERN + ')\{(' + FILTER_CHARS + '+)(?:' + SEP_REGEX + '(' + FILTER_CHARS + '+))*\}$'
 
 def run():
     if not arguments_valid():
@@ -26,13 +27,11 @@ def run():
     hash_tree.update()
     table = transform_diffs_to_table(diffs)
     for arg in sys.argv[1:]:
-        matches = re.match(ARG_PATTERN, arg)
-        email_adr = matches.group(1)
-        if matches.group(2) and matches.group(3):
-            filters = matches.group(2) + matches.group(3)
-            table = filter_table(table, filters)
-            if len(table) < 1:
-                continue
+        email_adr = re.match('^(' + MAIL_PATTERN + ')\{.*\}$', arg).group(1)
+        filters = re.match('.*\{(.*)\}', arg).group(1)
+        table = filter_table(table, filters)
+        if len(table) < 1:
+            continue
         response_page = build_response_page(table)
         send_email('Aktuelle Verkehrsmeldungen', 'KVV Ticker', response_page, email_adr)
 
@@ -76,7 +75,7 @@ def arguments_valid():
     for arg in sys.argv[1:]:
         matches = re.match(ARG_PATTERN, arg)
         if not matches:
-            print('[ERROR] incorrect argument pattern, use mail@domain.com{string1|string2&string3} (& binds stronger than |)')
+            print('[ERROR] incorrect argument pattern, use mail@domain.com{string1|string2&string3}')
             return False
     return True
 
